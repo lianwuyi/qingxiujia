@@ -1,0 +1,14 @@
+
+PROCEDURE HttpQueryParams
+LPARAMETERS cparam1,iconnid
+LOCAL cresult
+cresult = ""
+IF INLIST(_VFP.startmode,0)
+   cresult = HTTPGETQUERY(ICONNID,CPARAM1)
+   IF EMPTY(CRESULT)
+      cresult = HTTPGETFORM(ICONNID,CPARAM1)
+   ENDIF
+ELSE
+   cresult = FWS_REQUEST(CPARAM1)
+ENDIF
+RETURN CRESULT
